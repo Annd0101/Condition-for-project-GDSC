@@ -52,8 +52,9 @@ export default {
     getAllTodos()
     const markComplete = id => {
       todos.value = todos.value.map(todo => {
-        if (todo.id === id) todo.completed = !todo.completed
+        if (todo.id == id) todo.completed = !todo.completed
         return todo
+        
       })
     }
     const deleteTodo = async id => {
@@ -64,18 +65,17 @@ export default {
         console.log(error)
       }
     }
-    const addTodo = async newTodo => {
+    const addTodo = newTodo=> {
       try {
-        const res = await axios.post(
-          'https://jsonplaceholder.typicode.com/todos',
-          newTodo
-        )
-        todos.value.push(res.data)
+        newTodo.value = todos.value.push({
+          id: todos.value.length + 1,
+          title: newTodo.title,
+          completed: false })
       } catch (error) {
         console.log(error)
       }
     }
-    
+    addTodo()
     return {
       todos,
       markComplete,
